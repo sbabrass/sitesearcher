@@ -5,6 +5,8 @@ from email.utils import parsedate
 from sitesearcher.items import SearchItem
 from sitesearcher.utils import clean_response_body
 from sitesearcher.utils import decode
+from scrapy.http import Request
+
 
 class SearchSpider(scrapy.Spider):
     """ The SiteSearcher spider.
@@ -32,3 +34,7 @@ class SearchSpider(scrapy.Spider):
             url = response.urljoin(linkobj.extract())
             yield scrapy.Request(url, callback=self.parse)
 
+    def start_requests(self):
+        # Override to enable duplicate filtering of start urls
+        for url in self.start_urls:
+            yield Request(url)
