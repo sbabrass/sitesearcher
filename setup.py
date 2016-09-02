@@ -2,10 +2,23 @@ import os
 from setuptools import setup
 from setuptools import find_packages
 
+here = os.path.abspath(os.path.dirname(__file__))
+try:
+    README = open(os.path.join(here, 'README.rst')).read()
+except IOError:
+    README = ''
+try:
+    CHANGES = open(os.path.join(here, 'CHANGES.rst')).read()
+except IOError:
+    CHANGES = ''
+
 setup(
-    name='SiteSearcher',
-    version='0.1',
-    description='A command line tool that creates fulltext search indexes of your favourite websites on your machine, and allows you to search them locally',
+    name='sitesearcher',
+    version='0.1a1',
+    description='A command line tool that creates fulltext search '
+                'indexes of your favourite websites on your machine, '
+                'and allows you to search them locally',
+    long_description='\n\n'.join([README, CHANGES]),
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
@@ -15,6 +28,7 @@ setup(
     ],
     author="Sebastian Brass (sbabrass)",
     license="BSD-derived (http://www.repoze.org/LICENSE.txt)",
+    keywords='scrapy whoosh searching indexing websearch',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[

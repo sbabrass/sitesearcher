@@ -46,6 +46,6 @@ You can check out the latest version of source code from GitHub.
 Python Version Support
 ======================
 
-**SiteSearcher** supports Python Versions 2.7 and 3.x.
+**SiteSearcher** supports Python Versions 2.7 and 3.3+.
 
-However switching between Python versions requires a rebuild of your indexes, as there is currently no support for SiteSearcher/Python 2 to read and write indexes created with SiteSearcher/Python 3 and vice versa.
+However switching between Python versions may require a rebuild of your indexes, as there is currently no support for SiteSearcher/Python 2 to read and write indexes created with SiteSearcher/Python 3 and vice versa.
