@@ -1,0 +1,2 @@
+Copyright (c) 2016 Sebastian Braß.
+All Rights Reserved
