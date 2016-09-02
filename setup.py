@@ -32,10 +32,10 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'Click',
-        'scrapy',
-        'whoosh',
-        'pyasn1',
+        'Click~=6.6',
+        'scrapy~=1.1.2',
+        'whoosh~=2.7.4',
+        'pyasn1~=0.1.9',
     ],
     entry_points='''
         [console_scripts]

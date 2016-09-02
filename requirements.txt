@@ -1,0 +1,4 @@
+Click==6.6
+scrapy==1.1.2
+whoosh==2.7.4
+pyasn1==0.1.9
