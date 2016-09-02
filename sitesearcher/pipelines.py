@@ -11,14 +11,14 @@ schema = Schema(url=ID(stored=True, unique=True),
 
 
 class SearchPipeline(object):
-    update_list = []
+    cleanup = False
 
     def open_spider(self, spider):
         """ When opening spider, open or create index. """
 
-        index_dir = os.path.expanduser('~/.sitesearcher')
+        index_dir = os.path.expanduser('~/.sitesearcher/index')
         if not os.path.exists(index_dir):
-          os.mkdir(index_dir)
+            os.makedirs(index_dir)
 
         self.indexname = spider.allowed_domains[0]
         if index.exists_in(index_dir, indexname=self.indexname):
@@ -38,7 +38,6 @@ class SearchPipeline(object):
         versions and avoid duplicates
         """
 
-        self.update_list.append(item.get('url'))
         self.writer.update_document(
             url=item.get('url'), content=item.get('content'))
 
@@ -48,8 +47,9 @@ class SearchPipeline(object):
         On closing, delete any previously indexed items that have not been
         updated in this crawl, as these are obviously no longer reachable sites.
         """
+
         with self.index.searcher() as searcher:
             for page in searcher.all_stored_fields():
-                if page['url'] not in self.update_list:
+                if page['url'] not in spider.state['update_list']:
                     self.writer.delete_by_term('url', page['url'])
         self.writer.commit()

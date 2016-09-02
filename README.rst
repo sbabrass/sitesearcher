@@ -14,6 +14,7 @@ Usage
 
 :code:`sitesearcher search <mydomain>` - Open search prompt for :code:`<mydomain>`
 
+Indexing of large sites can take quite long, but you can stop the indexer at any time and continue later at the point where you left off. To halt the indexer, simply type :code:`<CTRL>+C` once and wait for graceful exit. To restart run the index command again with the :code:`--continue` flag, i.e. :code:`sitesearcher indexer <mydomain> --continue`.
 
 Web Server Friendly
 -------------------

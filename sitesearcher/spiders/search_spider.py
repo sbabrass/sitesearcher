@@ -20,13 +20,19 @@ class SearchSpider(scrapy.Spider):
            'sitesearcher.pipelines.SearchPipeline': 300,
         }
     }
+    # state = {
+    #     'update_list': [],
+    # }
 
     def parse(self, response):
         item = SearchItem()
         item['url'] = decode(response.url, 'utf-8')
         item['content'] = clean_response_body(response.body)
+        if 'update_list' in self.state:
+            self.state['update_list'].append(item.get('url'))
+        else:
+            self.state['update_list'] = [item.get('url')]
         # if 'Last-Modified' in response.headers:
-        #     import pdb; pdb.set_trace();
         #     item['modified'] = datetime(
         #         *parsedate(response.headers['Last-Modified'])[:6])
         yield item

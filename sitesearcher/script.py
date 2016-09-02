@@ -2,6 +2,7 @@
 import click
 import re
 import os
+import shutil
 try:
     # For Python 3.0 and later
     from urllib.request import urlopen
@@ -41,10 +42,25 @@ def sitesearcher():
 
 @sitesearcher.command()
 @click.argument('domain', metavar="<domain>")
-def indexer(domain):
-    """ Build or update the search index for the website. """
+@click.option('--continue', '-c', 'continued', is_flag=True,
+              help='Continue previously aborted indexing')
+def indexer(domain, continued):
+    """ Build or update the search index for the website.
 
-    process = CrawlerProcess(get_project_settings())
+    To pause indexing press CTRL+C once and wait for graceful exit.
+    Use the --continue flag to continue a paused indexing process.
+    """
+    path = os.path.expanduser('~/.sitesearcher/tmp-{}'.format(domain))
+
+    if not continued:
+        try:
+            shutil.rmtree(path)
+        except OSError:
+            pass
+
+    settings = get_project_settings()
+    settings['JOBDIR'] = path
+    process = CrawlerProcess(settings)
     process.crawl(
         'search',
         allowed_domains=[domain],
@@ -63,8 +79,8 @@ def search(domain):
     # Look for index for requested domain
     try:
         ix = index.open_dir(
-            os.path.expanduser('~/.sitesearcher'), indexname=domain)
-    except EmptyIndexError:
+            os.path.expanduser('~/.sitesearcher/index'), indexname=domain)
+    except (EmptyIndexError, OSError):
         click.echo("""
             No index was found for domain {0}.
             Use "sitesearcher indexer {0}" to create one and try again.
