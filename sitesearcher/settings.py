@@ -15,10 +15,7 @@ SPIDER_MODULES = ['sitesearcher.spiders']
 NEWSPIDER_MODULE = 'sitesearcher.spiders'
 
 
-DOWNLOADER_MIDDLEWARES = {
-        'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-        'sitesearcher.set_useragent.SetUserAgentMiddleware': 400,
-}
+USER_AGENT = 'SiteSearcher'
 
 
 # Obey robots.txt rules

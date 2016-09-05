@@ -4,15 +4,6 @@ from whoosh.highlight import get_text
 from scrapy.settings import Settings
 
 
-def get_user_agent():
-    """ Return the User Agent string.
-
-    Separated to support extensions in later versions.
-    """
-
-    return "SiteSearcher"
-
-
 def decode(string, encoding):
     """ Handle Python 2 + 3 compatibility issue """
     try:
