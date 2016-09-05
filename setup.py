@@ -14,7 +14,7 @@ except IOError:
 
 setup(
     name='sitesearcher',
-    version='0.1a1',
+    version='0.1a2',
     description='A command line tool that creates fulltext search '
                 'indexes of your favourite websites on your machine, '
                 'and allows you to search them locally',
